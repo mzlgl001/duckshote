@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+
+		.box{
+			background-size:100% 100%;
+			width:100px;
+			height:100px;
+			position:absolute;
+		}
+		.hh{
+			position:absolute;
+			left:875px;
+			top:30px;
+		}
+		.bb{
+			position:absolute;
+			left:895px;
+			top:90px;
+		}
+		.imgg{
+			position:absolute;
+			background-size:100% 100%;
+			width:1900px;
+			height:950px;
+		}
+	</style>
+</head>
+<body>
+	<img class="imgg" src="1.jpg">
+	<h2 class="hh">Очки <span class="score">0</span> из 30</h2>
+	   <button class="btn bb"> Начать игру</button>
+
+
+
+	<script>
+
+
+
+		let bad = document.querySelector('.bad1')
+        let btn = document.querySelector(".btn");
+        let int1;
+        btn.onclick = function(){
+            int1 =  setInterval(create, 300);
+            setTimeout(finish, 9000);
+              }
+        function getRandom(num){
+            let rand = Math.random() * num; 
+            let round = Math.round(rand); 
+            return round;
+        }
+        function finish(){
+            clearInterval(int1);
+            alert("конец");
+        }
+
+        let y = [200, 400, 600];
+        let images = ["2.png", "3.png", "4.png"];
+        let score = 0;
+
+        function create(){
+            let elem = document.createElement('div'); 
+            document.body.appendChild(elem); 
+            elem.classList.add("box");
+            elem.style.left = getRandom(1200) + "px";
+            elem.style.top = y[getRandom(2)] + "px";
+
+            let randomImg = getRandom(2);
+            elem.style.backgroundImage = "url(" + images[randomImg] + ")";
+
+            if(randomImg == 0){
+                 elem.type = "norm";
+            }else if(randomImg == 1){
+                elem.type = "good";
+            }else if(randomImg == 2){
+                elem.type = "bad";
+            }
+            function hidbad(){
+                if (elem.type == 'bad')
+                {
+                    elem.style.display = 'none';
+                }
+
+            }
+            setTimeout(hidbad, 2000)
+            elem.onclick = function(){
+
+                elem.style.display = "none";
+                if(elem.type == "norm")
+                	{score = score + 1;
+                	document.querySelector('.score').innerHTML = score;}
+                else if(elem.type == "good")
+                	{score = score + 2;
+                	document.querySelector('.score').innerHTML = score;}
+                else if(elem.type == "bad")
+                    {score = score - 2;
+                    document.querySelector('.score').innerHTML = score;}
+
+            	if (score == 30) {
+            		alert('Победа')
+                    
+
+            	}
+
+
+                
+            }
+            console.log("Очки " + score);
+            
+        }
+        
+
+    </script>
+
+</body>
+</html>
